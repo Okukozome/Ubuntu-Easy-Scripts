@@ -16,6 +16,8 @@ BACKUP_FILE="${CONFIG_FILE}.bak_$(date +%F-%T)"
 cp "$CONFIG_FILE" "$BACKUP_FILE"
 echo "已备份原配置文件到 $BACKUP_FILE"
 
+sed -iE '/^\s*Include\s+/s/^/#/' "$CONFIG_FILE"
+
 for key in "${!SSH_SETTINGS[@]}"; do
   value="${SSH_SETTINGS[$key]}"
   correct_line="$key $value"
